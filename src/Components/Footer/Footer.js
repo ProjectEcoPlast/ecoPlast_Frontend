@@ -13,7 +13,7 @@ const Footer = () => {
         <div className="footerfields">
           <div className="follow">
             <div>
-              <span>UPES Dehradun</span>
+              <span>AKGEC Ghaziabad</span>
               <span>
                 <PlaceOutlinedIcon sx={{ cursor: "pointer" }} />
               </span>
