@@ -4,8 +4,10 @@ import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
 import SubscriptionsRoundedIcon from '@mui/icons-material/SubscriptionsRounded';
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
 import TwitterIcon from '@mui/icons-material/Twitter';
+import { useNavigate } from "react-router-dom";
 // import logo from "../../Assets/SSlogo.png";
 const Footer = () => {
+  const navigate = useNavigate();
   return (
     <>
       <div className="Footer">
@@ -32,7 +34,7 @@ const Footer = () => {
           </div>
           <span>Project Associate</span>
           <span>Services</span>
-          <span>Login</span>
+          <span className='login' onClick={(e) => {navigate('/sign');}} value="Login">Login</span>
         </div>
       </div>
       <div className="baseline">

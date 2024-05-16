@@ -62,20 +62,11 @@ const Navbar = ({defaulth}) => {
         <div className='logo'>
         </div>
         <div className='head'>
+          <h3 className='ecoplast-btn' onClick={(e) => { navigate('/'); }} >EcoPlast</h3>
           <button className={defaulth === 'Home'? 'selectedpgchoice' : 'onlychoice'} onClick={(e) => {navigate('/');}} value="Home">Home</button>
           <button className={defaulth === 'Garbage Nearby'? 'selectedpgchoice' : 'onlychoice'} onClick={(e) => {navigate('/garbagenearby');}} value="Garbage Nearby">Garbage Availability</button>
           <button className={defaulth === 'UserLogin'? 'selectedpgchoice' : 'onlychoice'} onClick={(e) => {navigate('/sign');}} value="Login">SignIn/SignUp</button>
-          <div className='location'>
-          <h3>EcoPlast</h3>
-          {/* <span >Emergency</span> */}
-          {/* <AddBoxIcon sx={{color:"white"}}/> */}
-
-
-
-
-
-
-          </div>
+          
         </div>
         </div>
     </div>
