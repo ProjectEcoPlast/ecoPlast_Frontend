@@ -38,3 +38,6 @@
     display: flex;
     gap: 1.5rem;
 }
+.login{
+    cursor: pointer;
+}
