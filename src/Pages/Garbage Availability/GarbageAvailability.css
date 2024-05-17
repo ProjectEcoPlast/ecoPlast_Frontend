@@ -1,76 +1,119 @@
-.availablesec{
+.availablesec {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    gap:2vw;
-}
-.secdiv1,.secdiv2{
-    height: 90vh;
-    display: flex;
-    /* border: 4px solid red; */
-}
-.secdiv1{
-    width: 40vw;
-    align-items: center;
-    justify-content: center;
-}
-.secdiv2{
-    width: 60vw;
+    gap: 2vw;
+  }
+  
+  .secdiv1, .secdiv2 {
+    height: auto;
     display: flex;
     flex-direction: column;
-}
-.secdiv1 img{
-    height: 80vh;
-    width: 35vw;
-}
-.titlehosp{
-    width: 40vw;
+    /* border: 1px solid #ccc; */
+    /* border-radius: 8px; */
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    padding: 16px;
+    background: #fff;
+  }
+  
+  .secdiv1 {
+    width: 100%;
+    max-width: 40vw;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .secdiv1 img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .secdiv2 {
+    width: 100%;
+    max-width: 40vw;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+  }
+  
+  .titlehosp {
     display: flex;
     justify-content: center;
-    margin-top: 5vh;
-    font-size:3rem;
-    /* font-family: 'Ramabhadra', sans-serif;  */
-}
-
-.loc{
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .loc {
     display: flex;
-    justify-content: flex-start;
-    font-size: 1.5rem;
-    gap:1rem;
-    margin: 0.7vh;
-    /* font-family: 'Secular One', sans-serif; */
-}
-.ans{
-   color: rgb(127, 121, 121);
-}
-.bookbed{
-    display: flex;
-    justify-content: center;
-    width: 40vw;
-}
-.otherfacility, .ContactNo{
-    display: flex;
-
-}
-.titlehosp span{
-    color:green;
-}
-.ContactNo input{
-width: 20vw;
-height: 5vh;
-padding: 1rem;
-font-size: 1rem;
-}
-.xxx{
+    flex-direction: column;
     font-size: 1rem;
-    padding: 0.3rem;
-}
-.otpfields{
+    margin-bottom: 1rem;
+  }
+  
+  .loc span {
+    margin-bottom: 8px;
+  }
+  
+  .loc input, .loc select {
+    padding: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .xxx {
+    flex: 1;
+    padding: 8px;
+  }
+  
+  .ans {
+    color: rgb(127, 121, 121);
+  }
+  
+  .bookWaste {
     display: flex;
-    gap:1rem;
-}
-.otpfields input{
+    justify-content: center;
+  }
+  
+  .otpfields {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .otpfields input {
     width: 2rem;
     height: 2.5rem;
     padding: 0.5rem;
     font-size: large;
-}
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .secdiv1, .secdiv2 {
+      width: 90vw;
+    }
+  
+    .titlehosp {
+      font-size: 1.5rem;
+    }
+  
+    .loc {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .loc input, .loc select {
+      margin-left: 0;
+      margin-top: 4px;
+      width: 100%; /* Make input/select fields full width in smaller screens */
+    }
+  
+    .bookWaste Button {
+      width: 80vw;
+    }
+  }
+  
