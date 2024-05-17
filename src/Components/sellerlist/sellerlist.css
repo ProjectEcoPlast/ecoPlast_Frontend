@@ -1,66 +1,86 @@
-.Hosplist{
+.Hosplist {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 35vh;
+    height: auto;
     margin-top: 5vh;
+    padding: 1rem;
 }
-.inHosplist{
-   width: 80vw;
-   /* border: 2px solid black; */
-   border-radius: 0.7rem;
-   display: flex;
-   /* background: #d2e4ed; */
+
+.inHosplist {
+    width: 80vw;
+    border: 2px solid #2B96CC;
+    border-radius: 0.7rem;
+    display: flex;
+    background: #f0f8ff; /* Light blue background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
 }
-.hosplistimg{
+
+.hosplistimg {
     width: 30vw;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.hosplistimg img{
-    width:25vw;
-    height: 30vh;
+
+.hosplistimg img {
+    width: 25vw;
+    height: auto;
     border: 2px solid #2B96CC;
     border-radius: 0.7rem;
 }
-.hosplisttxt{
-    width: 33vw;
 
+.hosplisttxt {
+    width: 50vw;
+    padding-left: 1rem;
 }
-.hosplisttitle{
+
+.hosplisttitle {
     margin-top: 1rem;
     font-size: 2rem;
-    /* font-family: 'Ramabhadra', sans-serif;  */
+    font-weight: bold;
+    color: #333; /* Darker text color */
 }
-.line{
-    display: flex;
-    margin: 0.3rem;
-    font-size: 1.5rem;
-    /* font-weight: 600; */
-    /* font-family: 'Secular One', sans-serif; */
 
+.line {
+    display: flex;
+    margin: 0.3rem 0;
+    font-size: 1.2rem;
+    color: #555; /* Darker text color */
 }
-.bluetxt{
+
+.bluetxt {
     color: #2B96CC;
-    margin-left: 1rem;
+    margin-left: 0.5rem;
 }
-.moreinfo{
-    font-size: 1.5rem;
-    color:#2B96CC;
-    height: 32vh;
+
+.moreinfo {
     display: flex;
     flex-direction: column;
-    margin-left: 2rem;
     justify-content: flex-end;
+    margin-left: 2rem;
 }
-.moreinfo span{
-    color: #2B96CC;
-    /* cursor: pointer; */
+
+.moreinfo span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.hrLine{
+
+.hrLine {
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+hr {
+    width: 75%;
+    height: 2px;
+    border: none;
+    background-color: gray;
+    margin-top: 1rem;
 }
