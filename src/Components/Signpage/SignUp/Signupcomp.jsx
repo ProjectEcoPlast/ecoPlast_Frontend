@@ -15,6 +15,7 @@ const SignupComp = () => {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [role, setRole] = useState("");
   const [pincode, setPincode] = useState("");
 
@@ -30,10 +31,37 @@ const SignupComp = () => {
       !city ||
       !state ||
       !password ||
+      !confirmPassword ||
       !role ||
       !pincode
     ) {
       toast.error("Please fill in all the fields");
+      return;
+    }
+
+    // Name validation
+    const nameRegex = /^[A-Za-z ]{3,}$/;
+    if (!nameRegex.test(name)) {
+      toast.error("Name must contain only alphabets and be at least 3 characters long");
+      return;
+    }
+
+    // Address validation
+    if (address.length < 10) {
+      toast.error("Address must be at least 10 characters long");
+      return;
+    }
+
+    // City validation
+    const cityStateRegex = /^[A-Za-z ]+$/;
+    if (!cityStateRegex.test(city)) {
+      toast.error("City must contain only alphabets");
+      return;
+    }
+
+    // State validation
+    if (!cityStateRegex.test(state)) {
+      toast.error("State must contain only alphabets");
       return;
     }
 
@@ -55,6 +83,12 @@ const SignupComp = () => {
     const pincodeRegex = /^\d{6}$/;
     if (!pincodeRegex.test(pincode)) {
       toast.error("Pin code must be a 6-digit number");
+      return;
+    }
+
+    // Password match validation
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
       return;
     }
 
@@ -189,6 +223,15 @@ const SignupComp = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
                 placeholder="Password"
+              />
+            </div>
+            <div className="text2">
+              <span></span>
+              <input
+                type="password"
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                value={confirmPassword}
+                placeholder="Confirm Password"
               />
             </div>
             <div className="signbtn2">
