@@ -197,6 +197,18 @@ const GarbageAvailability = () => {
             )}
           </div>
           <div className="WastesPrice loc">
+            <span>Price For Waste:</span>
+            {result && Wastetype === "General" && (
+              <span className="ans">
+                &#8377;{result.WasteData.generalType.pricePerbad}
+              </span>
+            )}
+            {result && Wastetype === "Special" && (
+              <span className="ans">
+                &#8377;{result.WasteData.specialType.pricePerbad}
+              </span>
+            )}
+          <div className="WastesPrice loc">
             <span>Waste Type:</span>
 
             <FormControl sx={{ m: 1, minWidth: 180 }} size="small">
@@ -212,32 +224,6 @@ const GarbageAvailability = () => {
                 <MenuItem value="Special">Special</MenuItem>
               </Select>
             </FormControl>
-          </div>
-          <div className="WastesPrice loc">
-            <span>Price For Waste:</span>
-            {result && Wastetype === "General" && (
-              <span className="ans">
-                &#8377;{result.WasteData.generalType.pricePerbad}
-              </span>
-            )}
-            {result && Wastetype === "Special" && (
-              <span className="ans">
-                &#8377;{result.WasteData.specialType.pricePerbad}
-              </span>
-            )}
-            <div className="loc">
-              <span>Aadhar Card No:</span>
-              <input
-                className="ans xxx"
-                type="number"
-                minLength={12}
-                maxLength={12}
-                value={aadharno}
-                onChange={(e) => {
-                  setAadharno(e.target.value);
-                }}
-              ></input>
-            </div>
           </div>
 
           <div className="loc">
@@ -272,6 +258,20 @@ const GarbageAvailability = () => {
               }}
             ></input>
           </div>
+          <div className="loc">
+              <span>Aadhar Card No:</span>
+              <input
+                className="ans xxx"
+                type="number"
+                minLength={12}
+                maxLength={12}
+                value={aadharno}
+                onChange={(e) => {
+                  setAadharno(e.target.value);
+                }}
+              ></input>
+            </div>
+            </div>
           <div className="bookWaste">
             <Button
               onClick={handleWastebooking}

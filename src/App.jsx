@@ -8,14 +8,14 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import UpdateWaste from "./Pages/UpdateWaste/UpdateWaste";
 import District from "./Pages/Districtwise/District";
-import Landing from "./Pages/Landing/Landing";
+// import Landing from "./Pages/Landing/Landing";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element= {<Landing/>}/>
+          <Route path="/" element= {<Home/>}/>
           <Route path="/home" element={<Home/>} />
           <Route path="/Sign" element={<Sign/>} />
           <Route path="/Info" element={<Info/>} />
