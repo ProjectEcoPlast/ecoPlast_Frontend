@@ -19,15 +19,16 @@ const SignInComponent = () => {
       password:password,
       role:role
     }
-    axios.post('http://localhost:8000/login',data)
+    console.log(process.env.BACKEND_BASE_URL)
+    axios.post(`http://localhost:8088/api/v1/login`,data)
     .then((res) => {
         if(res.data.data.token){
           {navigate('/Dashboard');}
           localStorage.setItem("token",res.data.data.token);
           localStorage.setItem("name",res.data.data.name);
           localStorage.setItem("email",res.data.data.email);
+          localStorage.setItem("mobile",res.data.data.mobile);
           localStorage.setItem("city",res.data.data.city);
-          localStorage.setItem("address",res.data.data.address);
           localStorage.setItem("pin",res.data.data.pin);
           localStorage.setItem("state",res.data.data.state);
         } 
@@ -59,21 +60,21 @@ const SignInComponent = () => {
               </div>
               <div className="rradio">
               <div>
-                <input onChange={(e) => {setRole('VENDOR')}} className="radiobutton" type="radio"  value={role} name="ht" id='role' />
-                <label className='radiolabels' htmlFor="ht">Vendor</label>
+                <input onChange={(e) => {setRole('User')}} className="radiobutton" type="radio"  value={role} name="ht" id='role' />
+                <label className='radiolabels' htmlFor="ht">User</label>
               </div>
               <div>
-                <input onChange={(e) => {setRole('SELLER')}} className="radiobutton" type="radio" value={role} name="ht" id='role' />
-                <label className='radiolabels' htmlFor="ht">Seller</label>
+                <input onChange={(e) => {setRole('Waste_Collector')}} className="radiobutton" type="radio" value={role} name="ht" id='role' />
+                <label className='radiolabels' htmlFor="ht">Collector</label>
               </div>
               <div>
-                <input onChange={(e) => {setRole('ADMIN')}} className="radiobutton" type="radio" value={role} name="ht" id='role' />
+                <input onChange={(e) => {setRole('Admin')}} className="radiobutton" type="radio" value={role} name="ht" id='role' />
                 <label className='radiolabels' htmlFor="ht">Admin</label>
               </div>
             </div>
               <div className="text1">
                 <span></span>
-                <input onChange={(e) => {setPassword(e.target.value)}} value={password} placeholder="Password" />
+                <input type="password" onChange={(e) => {setPassword(e.target.value)}} value={password} placeholder="Password" />
               </div>
               <div className="signbtn">
                 <button onClick={handleSignIn}>Sign In</button>

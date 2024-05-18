@@ -9,7 +9,8 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 const SignupComp = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
+  const [houseNo, setHouseNo] = useState("");
+  const [landMark, setLandMark] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
@@ -25,7 +26,8 @@ const SignupComp = () => {
     // Validation checks
     if (
       !name ||
-      !address ||
+      !houseNo ||
+      !landMark ||
       !phone ||
       !email ||
       !city ||
@@ -46,11 +48,11 @@ const SignupComp = () => {
       return;
     }
 
-    // Address validation
-    if (address.length < 10) {
-      toast.error("Address must be at least 10 characters long");
-      return;
-    }
+    // // Address validation
+    // if (address.length < 10) {
+    //   toast.error("Address must be at least 10 characters long");
+    //   return;
+    // }
 
     // City validation
     const cityStateRegex = /^[A-Za-z ]+$/;
@@ -95,20 +97,22 @@ const SignupComp = () => {
     const data = {
       name,
       email,
-      phone,
+      mobile: phone,
       password,
-      address,
+      houseNo,
+      landMark,
       state,
       city,
       pin: pincode,
       role,
     };
-
+    console.log(data)
     axios
-      .post("http://localhost:8000/register", data)
+      .post(`http://localhost:8088/api/v1/signup`, data)
       .then((res) => {
+        console.log("token at signup", res.data)
         if (res.data.data.token) {
-          localStorage.setItem("token", res.data.data.token);
+          localStorage.setItem("token", res.data.token);
           navigate("/home");
         }
       })
@@ -146,24 +150,24 @@ const SignupComp = () => {
               <div className="rradio">
                 <div>
                   <input
-                    onChange={() => setRole("VENDOR")}
+                    onChange={() => setRole("User")}
                     className="radiobutton"
                     type="radio"
-                    checked={role === "VENDOR"}
+                    checked={role === "User"}
                   />
                   <label className="radiolabels" htmlFor="ht">
-                    Vendor
+                    User
                   </label>
                 </div>
                 <div>
                   <input
-                    onChange={() => setRole("SELLER")}
+                    onChange={() => setRole("Waste_Collector")}
                     className="radiobutton"
                     type="radio"
-                    checked={role === "SELLER"}
+                    checked={role === "Waste_Collector"}
                   />
                   <label className="radiolabels" htmlFor="ht">
-                    Seller
+                  Collector
                   </label>
                 </div>
               </div>
@@ -171,9 +175,17 @@ const SignupComp = () => {
             <div className="text2">
               <span></span>
               <input
-                onChange={(e) => setAddress(e.target.value)}
-                value={address}
-                placeholder="Address"
+                onChange={(e) => setHouseNo(e.target.value)}
+                value={houseNo}
+                placeholder="House Number"
+              />
+            </div>
+            <div className="text2">
+              <span></span>
+              <input
+                onChange={(e) => setLandMark(e.target.value)}
+                value={landMark}
+                placeholder="Land mark"
               />
             </div>
             <div className="text2">

@@ -62,8 +62,8 @@ const Dashboard = () => {
                         <img src={Hosprefimg} alt="img"></img>
                     </div>
                     <div className='img_below'>
-                        {dash_result && <span className="main">{dash_result.dataWaste.name}</span>}
-                        {dash_result && <span className="main">{dash_result.dataWaste.city}</span>}
+                        {/* {dash_result && <span className="main">{dash_result.dataWaste.name}</span>}
+                        {dash_result && <span className="main">{dash_result.dataWaste.city}</span>} */}
                     </div>
                     <div style={{margin:"20px"}}>
                         {clicked === 'about' && <button className='edit_btn'

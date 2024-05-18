@@ -8,11 +8,13 @@ const About = () => {
   useEffect(() => {
     const  name = localStorage.getItem('name');
     const email = localStorage.getItem('email');
-    const address = localStorage.getItem('address');
+    const mobile = localStorage.getItem('mobile');
+    const houseNo = localStorage.getItem('houseNo');
+    const landMark = localStorage.getItem('landMark');
     const city = localStorage.getItem('city');
     const state = localStorage.getItem('state');
     const pin = localStorage.getItem('pin');
-    setProfileData({ name, email, address, city, state, pin });
+    setProfileData({ name, email, mobile, houseNo, landMark, city, state, pin });
 
   },[setProfileData])
 
@@ -26,17 +28,17 @@ const About = () => {
         { <span className="ans">{profileData.city}</span>}
       </div>
       <div className="dash_txt">
-        <span>Address:&nbsp;&nbsp;</span>
-        { <span className="ans">{profileData.address}</span>}
-      </div>
-      <div className="dash_txt">
         <span>State:&nbsp;&nbsp;</span>
         { <span className="ans">{profileData.state}</span>}
+      </div>
+      <div className="dash_txt">
+        <span>Pin:&nbsp;&nbsp;</span>
+        { <span className="ans">{profileData.pin}</span>}
       </div>
 
       <div className="dash_txt">
         <span>Phone No:&nbsp;&nbsp;</span>
-        { <span className="ans">{profileData.mobileNum}</span>}
+        { <span className="ans">{profileData.mobile}</span>}
       </div>
       <div className="dash_txt">
         <span>Email:&nbsp;&nbsp;</span>
