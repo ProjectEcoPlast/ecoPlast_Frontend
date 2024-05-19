@@ -1,16 +1,15 @@
 import React from 'react'
 import './Home.css'
 import Navbar from '../../Components/Navbar/Navbar';
-// import Slider from '../../Components/Slider/Slider';
 import Footer from '../../Components/Footer/Footer';
 import Support from '../../Components/Support/Support';
-import Chat from '../../Components/Chat/Chat'
+// import Chat from '../../Components/Chat/Chat'
 import { useNavigate } from "react-router-dom";
 const Home = () => {
   const navigate = useNavigate();
-  const handlegarbageavailnavigate = () => {
-    navigate("/GarbageNearby");
-  }
+  // const handlegarbageavailnavigate = () => {
+  //   navigate("/GarbageNearby");
+  // }
 
 
   return (
@@ -28,13 +27,8 @@ const Home = () => {
           </div>
         </div>
         </div>
-        <div className='options'>
-          <div className='opchoice' onClick={handlegarbageavailnavigate}>Garbage</div>
-          <div id="hospitalchoice" className='opchoice'>GARBAGE</div>
-          <div className='opchoice'>GARBAGE HANDLING</div>
-        </div>
         <div className='sec2'>
-          <span className='hosp_head'>Waste Management</span>
+          <span className='hosp_head'>Safe Environment</span>
 
           {/* <Slider/> */}
           <div className='images'>
@@ -77,7 +71,7 @@ const Home = () => {
             </div>
 
           </div>
-          <Chat/>
+          {/* <Chat/> */}
           <Support/>
           <Footer/>
         </div>

@@ -1,0 +1,43 @@
+.analytics {
+    padding: 20px;
+    background: #f4f4f4;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.analytics h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.analytics-section {
+    margin-bottom: 20px;
+}
+
+.analytics-section h3 {
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.analytics-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.analytics-section ul li {
+    background: #fff;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.analytics-section ul li span {
+    display: block;
+    color: #333;
+}
+
+.analytics-section ul li span:first-child {
+    font-weight: bold;
+}

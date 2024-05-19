@@ -110,10 +110,16 @@ const SignupComp = () => {
     axios
       .post(`http://localhost:8088/api/v1/signup`, data)
       .then((res) => {
-        console.log("token at signup", res.data)
-        if (res.data.data.token) {
-          localStorage.setItem("token", res.data.token);
-          navigate("/home");
+        // console.log("token at signup", res.data)
+        if (res?.data?.data?.token) {
+            {navigate('/Dashboard');}
+            localStorage.setItem("token",res.data.data.token);
+            localStorage.setItem("name",res.data.data.name);
+            localStorage.setItem("email",res.data.data.email);
+            localStorage.setItem("mobile",res.data.data.mobile);
+            localStorage.setItem("city",res.data.data.city);
+            localStorage.setItem("pin",res.data.data.pin);
+            localStorage.setItem("state",res.data.data.state);
         }
       })
       .catch((err) => {

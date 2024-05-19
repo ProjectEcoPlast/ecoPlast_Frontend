@@ -25,7 +25,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="icons">
-          <span>About Us</span>
+          <span className='about' onClick={(e) => {navigate('/about');}} value="About">About Us</span>
           <span className="footericon">
             <FacebookRoundedIcon sx={{ cursor: "pointer", height:"2rem",width:'2rem' }}/>
             <TwitterIcon sx={{ cursor: "pointer", height:"2rem",width:'2rem' }}/>

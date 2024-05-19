@@ -18,7 +18,6 @@ const UpdateWaste = () => {
   const handleUpdateSubmit = (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-
     // Display loader
     setLoading(true);
 
@@ -27,14 +26,22 @@ const UpdateWaste = () => {
       wasteType: typeWaste,
       weightInKg: quantity,
       pricePerKg: amount,
-      token: token,
     };
 
     axios
-      .post("http://localhost:8000/seller/sell", data)
+      .post("http://localhost:8088/api/v1/user/waste-token", data,{
+        headers: {
+          "Content-Type": "application/json",
+          token: token
+        }
+      })
       .then((res) => {
-        if (res.data.data.token) {
-          console.log("Added Successfully");
+        console.log("token added successfully", res)
+        if (res?.data?.success === true ) {
+          console.log("Waste token Added Successfully");
+        }
+        else{
+          console.log("Waste token Not Added");
         }
       })
       .catch((err) => {

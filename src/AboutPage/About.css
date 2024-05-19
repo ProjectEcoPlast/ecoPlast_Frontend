@@ -1,0 +1,38 @@
+/* src/pages/About.css */
+
+.about-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .about-container h1,
+  .about-container h2 {
+    color: #333;
+  }
+  
+  .about-container p {
+    color: #666;
+    line-height: 1.6;
+  }
+  
+  .about-container ul {
+    list-style-type: disc;
+    margin-left: 20px;
+  }
+  
+  .about-container ul li {
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .about-container a {
+    color: #1e90ff;
+    text-decoration: none;
+  }
+  
+  .about-container a:hover {
+    text-decoration: underline;
+  }
+  

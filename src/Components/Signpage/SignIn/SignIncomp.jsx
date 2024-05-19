@@ -22,7 +22,7 @@ const SignInComponent = () => {
     console.log(process.env.BACKEND_BASE_URL)
     axios.post(`http://localhost:8088/api/v1/login`,data)
     .then((res) => {
-        if(res.data.data.token){
+      if (res?.data?.data?.token) {
           {navigate('/Dashboard');}
           localStorage.setItem("token",res.data.data.token);
           localStorage.setItem("name",res.data.data.name);
