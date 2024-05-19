@@ -30,18 +30,17 @@ const UpdateWaste = () => {
     };
 
     axios
-      .post(`${BACKEND_BASE_URL}/user/waste-token`, data,{
+      .post(`${BACKEND_BASE_URL}/user/waste-token`, data, {
         headers: {
           "Content-Type": "application/json",
-          token: token
-        }
+          token: token,
+        },
       })
       .then((res) => {
-        console.log("token added successfully", res)
-        if (res?.data?.success === true ) {
+        console.log("token added successfully", res);
+        if (res?.data?.success === true) {
           console.log("Waste token Added Successfully");
-        }
-        else{
+        } else {
           console.log("Waste token Not Added");
         }
       })
@@ -69,9 +68,26 @@ const UpdateWaste = () => {
           <div className="layer3_1">
             <div className="input2">
               <div className="ininput2">
-                <span className="waste_type">Garbage Type</span>
-                <div className="divisionwastetype">
-                  <div className="general">
+                <span
+                  className="waste_type"
+                  style={{
+                    color: "Red",
+                  }}
+                >
+                  Garbage Type
+                </span>
+                <div
+                  className="divisionwastetype"
+                  style={{
+                    margin: "15px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignContent: "center",
+                  }}
+                >
+                  <div
+                    className="general"
+                  >
                     <div className="generalin">
                       <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label">

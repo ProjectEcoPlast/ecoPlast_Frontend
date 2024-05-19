@@ -76,7 +76,7 @@ const GarbageAvailability = () => {
         console.log(res.data);
         toast.success("Waste booking successful!");
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        navigate("/home")
+        navigate("/")
       })
       .catch((err) => {
         console.log(err.response.data);

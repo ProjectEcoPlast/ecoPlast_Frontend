@@ -8,7 +8,7 @@ const Landing = () => {
         navigate('/')
     }
     const handleRecycle = () => {
-        navigate('/home')
+        navigate('/')
     }
     const navigate = useNavigate();
 

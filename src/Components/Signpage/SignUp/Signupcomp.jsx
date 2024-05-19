@@ -115,6 +115,7 @@ const SignupComp = () => {
             localStorage.setItem("city",res.data.data.city);
             localStorage.setItem("pin",res.data.data.pin);
             localStorage.setItem("state",res.data.data.state);
+            localStorage.setItem("role",res.data.data.role);
         }
       })
       .catch((err) => {
