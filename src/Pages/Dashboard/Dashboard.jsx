@@ -7,7 +7,7 @@ import Hosprefimg from "../../Assets/hosprefimg.png";
 import leaf from '../../Assets/leaf.png';
 import { useNavigate } from "react-router";
 import axios from 'axios';
-
+import BACKEND_BASE_URL from "../../Config/constant";
 const Dashboard = () => {
     const navigate = useNavigate();
     const [dash_result, setDash_result] = useState("");
@@ -15,7 +15,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-            axios.get(`http://localhost:8088/api/v1/user/waste-analytics`,{
+            axios.get(`${BACKEND_BASE_URL}/user/waste-analytics`,{
                 headers:{
                     token: token
                 }

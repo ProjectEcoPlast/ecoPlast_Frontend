@@ -6,6 +6,7 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import BACKEND_BASE_URL from "../../Config/constant";
 
 const UpdateWaste = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const UpdateWaste = () => {
     };
 
     axios
-      .post("http://localhost:8088/api/v1/user/waste-token", data,{
+      .post(`${BACKEND_BASE_URL}/user/waste-token`, data,{
         headers: {
           "Content-Type": "application/json",
           token: token

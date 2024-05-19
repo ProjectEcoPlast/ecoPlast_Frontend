@@ -6,18 +6,15 @@ import axios from "axios";
 import Button from "@mui/material/Button";
 // import { width } from "@mui/system";
 import plasticImage from "../../Assets/plasticBg.jpg";
-
+import BACKEND_BASE_URL from "../../Config/constant";
 const Sellerlist = ({
-  email,
-  wasteid,
+  tokenId,
   name,
-  mobilenum,
-  city,
   wasteFrom,
   wasteType,
   weightInKg,
   pricePerKg,
-  contactInfo
+  contactInfo,
 }) => {
   const navigate = useNavigate();
   // eslint-disable-next-line
@@ -25,48 +22,43 @@ const Sellerlist = ({
   const [disable, setDisable] = useState("");
 
   useEffect(() => {
-    if (wasteid) {
-      const data = {
-        Id: wasteid,
-      };
+    if (tokenId) {
+      const token = localStorage.getItem("token");
       axios
-        .post("http://localhost:8000//hospitalbyid", data)
+        .get(`${BACKEND_BASE_URL}/user/waste-token/${tokenId}`, {
+          headers: {
+            token: token,
+          },
+        })
         .then((res) => {
+          console.log(res.data);
           setwaste_avail(res.data);
-          if (
-            res.data.wasteData.plasticType.availbility +
-              res.data.wasteData.otherType.availbility <=
-            0
-          ) {
-            setDisable("yes");
-          }
         })
         .catch((err) => {
           console.log(err);
         });
     }
-  });
+  }, [wasteType]);
 
   return (
     <div className="hrLine">
       <div className="Hosplist">
         <div className="inHosplist">
           <div className="hosplistimg">
-            <img
-              src={plasticImage}
-              alt="img"
-            ></img>
+            <img src={plasticImage} alt="img"></img>
           </div>
           <div className="hosplisttxt">
             <div className="hosplisttitle">
-              <span>Seller : </span>
+              <span>User : </span>
               <span key={name}>{name}</span>
             </div>
             <div className="shorttxt">
-              {/* <div className='line'>
-                    <span>Contact No:</span>
-                    <span key={mobilenum} className='bluetxt'>{mobilenum}</span>
-                </div> */}
+              <div className="line">
+                <span>Contact No:</span>
+                <span key={contactInfo.mobile} className="bluetxt">
+                  {contactInfo.mobile}
+                </span>
+              </div>
 
               <div className="line">
                 <span>Waste From:</span>
@@ -96,10 +88,9 @@ const Sellerlist = ({
               <div className="line">
                 <span>Contact Info : </span>
                 <span key={name} className="bluetxt">
-                  {contactInfo.email} ({contactInfo.phone})
+                  {contactInfo.email} ({contactInfo.mobile})
                 </span>
-              </div>              
-
+              </div>
             </div>
           </div>
           <div className="moreinfo">
@@ -111,7 +102,7 @@ const Sellerlist = ({
                   variant="contained"
                   onClick={(e) => {
                     e.preventDefault();
-                    navigate("/garbageAvailability", { state: { wasteid } });
+                    navigate("/garbageAvailability", { state: { tokenId } });
                   }}
                 >
                   Confirm the purchase

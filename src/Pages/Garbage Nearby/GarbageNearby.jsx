@@ -6,6 +6,7 @@ import Support from "../../Components/Support/Support";
 import Footer from "../../Components/Footer/Footer";
 import Button from "@mui/material/Button";
 import SellerList from "../../Components/sellerlist/Sellerlist";
+import BACKEND_BASE_URL from "../../Config/constant";
 
 const GarbageNearby = () => {
   const [wasteData, setWasteData] = useState([]);
@@ -13,11 +14,18 @@ const GarbageNearby = () => {
   const [selectedWasteType, setSelectedWasteType] = useState("");
 
   useEffect(() => {
+    console.log(BACKEND_BASE_URL)
+    const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:8000/data/getSellData")
+      .get(`${BACKEND_BASE_URL}/public/user/waste-token`, {
+        headers: {
+          token: token,
+        },
+      })
       .then((res) => {
-        setWasteData(res.data.data);
-        const waste_type = res.data.data.map((val) => val.wasteType);
+        console.log(res.data.data);
+        setWasteData(res?.data?.data);
+        const waste_type = res?.data?.data.map((val) => val.wasteType);
         const uniqueWasteType = [...new Set(waste_type)];
         setWasteType(uniqueWasteType);
       })
@@ -27,7 +35,7 @@ const GarbageNearby = () => {
   }, []);
 
   const handleFilter = () => {
-    if(selectedWasteType === "All") window.location.reload();
+    if (selectedWasteType === "All") window.location.reload();
     if (!!selectedWasteType) {
       const filteredData = wasteData.filter(
         (val) => val.wasteType === selectedWasteType
@@ -42,22 +50,20 @@ const GarbageNearby = () => {
       <div className="filterout">
         <div className="left"> WasteType </div>
         <div className="right">
-        <select
-          value={selectedWasteType}
-          onChange={(e) => setSelectedWasteType(e.target.value)}
-        >
-          <option value="All">
-            All
-          </option>
-          {wasteType.map((data, index) => (
-            <option key={index} value={data}>
-              {data}
-            </option>
-          ))}
-        </select>
+          <select
+            value={selectedWasteType}
+            onChange={(e) => setSelectedWasteType(e.target.value)}
+          >
+            <option value="All">All</option>
+            {wasteType.map((data, index) => (
+              <option key={index} value={data}>
+                {data}
+              </option>
+            ))}
+          </select>
         </div>
         <Button variant="contained" onClick={handleFilter}>
-          Filter Out
+          Search
         </Button>{" "}
       </div>
 
@@ -77,16 +83,17 @@ const GarbageNearby = () => {
           wasteData.map((val, i) => (
             <SellerList
               key={i}
-              name={val.seller[0].name}
+              tokenId={val._id}
+              name={val.userId.name}
               wasteFrom={val.wasteFrom}
               wasteType={val.wasteType}
               weightInKg={val.weightInKg}
               pricePerKg={val.pricePerKg}
-              contactInfo={val.seller[0]}
+              mobilenum={val.userId.mobile}
+              contactInfo={val.userId}
             />
           ))}
       </div>
-
       <Support />
       <Footer />
     </div>

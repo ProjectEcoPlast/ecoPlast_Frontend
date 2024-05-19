@@ -1,5 +1,4 @@
 // src/pages/About.js
-
 import React from 'react';
 import './About.css'; // Assuming you have a CSS file for styling
 

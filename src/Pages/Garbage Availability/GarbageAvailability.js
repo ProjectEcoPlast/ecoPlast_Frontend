@@ -1,160 +1,86 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./GarbageAvailability.css";
 import Hosprefimg from "../../Assets/hosprefimg.png";
-// import StarIcon from "@mui/icons-material/Star";
 import Navbar from "../../Components/Navbar/Navbar";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-// import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-// import TextField from "@mui/material/TextField";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import Footer from '../../Components/Footer/Footer';
-// import Support from '../../Components/Support/Support';
-import Select from "@mui/material/Select";
-// import { fontSize } from "@mui/system";
 import { useLocation } from "react-router";
 import axios from "axios";
-
+import BACKEND_BASE_URL from "../../Config/constant";
+import { useNavigate } from "react-router";
 const GarbageAvailability = () => {
+  const navigate = useNavigate();
   const location = useLocation();
-
-  const otp1Ref = useRef(null);
-  const otp2Ref = useRef(null);
-  const otp3Ref = useRef(null);
-  const otp4Ref = useRef(null);
-  const otp5Ref = useRef(null);
-  const otp6Ref = useRef(null);
-
-  // eslint-disable-next-line
-  const [otp1, setOtp1] = useState("");
-// eslint-disable-next-line
-  const [otp2, setOtp2] = useState("");
-// eslint-disable-next-line
-  const [otp3, setOtp3] = useState("");
- // eslint-disable-next-line
-  const [otp4, setOtp4] = useState("");
-// eslint-disable-next-line
-  const [otp5, setOtp5] = useState("");
-// eslint-disable-next-line
-  const [otp6, setOtp6] = useState("");
-
-  const [pin1, setPin1] = useState([""]);
-  const [pin2, setPin2] = useState("");
-  const [pin3, setPin3] = useState("");
-  const [pin4, setPin4] = useState("");
-  const [pin5, setPin5] = useState("");
-  const [pin6, setPin6] = useState("");
-
-  const [verified, setVerified] = useState("");
-  const [store, setStore] = useState("");
-// eslint-disable-next-line
-  const [hospid, setHospid] = useState(location.state.hospid);
-  const [Wastetype, setWastetype] = useState("");
-  const [result, setResult] = useState();
-  const [useremailid, setUseremailid] = useState("");
-  const [username, setUsername] = useState("");
-  const [userage, setUserage] = useState("");
-  const [aadharno, setAadharno] = useState("");
-  const [open, setOpen] = React.useState(false);
-
-  // const [otp,setOtp] = useState('');
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleWastetype = (event) => {
-    setWastetype(event.target.value);
-  };
+  const { tokenId } = location.state || {};
+  const [result, setResult] = useState(null);
+  const [assignedMemberEmail, setAssignedMemberEmail] = useState("");
+  const [assignedMemberMobile, setAssignedMemberMobile] = useState("");
+  const [assignedMemberName, setAssignedMemberName] = useState("");
 
   useEffect(() => {
-    const data = {
-      Id: hospid,
-    };
+    const token = localStorage.getItem("token");
     axios
-      .post("http://localhost:8000//hospitalbyid", data)
+    .get(`${BACKEND_BASE_URL}/user/waste-token/${tokenId}`, {
+        headers: {
+          token: token,
+        },
+      })
       .then((res) => {
-        setResult(res.data);
-        // console.log(res.data);
+        setResult(res?.data?.data);
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Error fetching data");
       });
-  });
-
-  const handleVerify = () => {
-    let value =
-      parseInt(pin1) * 100000 +
-      parseInt(pin2) * 10000 +
-      parseInt(pin3) * 1000 +
-      parseInt(pin4) * 100 +
-      parseInt(pin5) * 10 +
-      parseInt(pin6);
-
-    const data = {
-      WasteAllotId: store.WasteAllotId,
-      WasteId: store.WasteId,
-      otp: value,
-    };
-    // console.log(data);
-    axios
-      .put("http://localhost:8000//Waste/bookingWaste/verify", data)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data === "your deal has been booked") {
-          console.log("Hurrah");
-          // setStore("");
-          setVerified("done");
-        }
-      })
-      .catch((err) => {
-        // console.log(err);
-        toast.error("Enter correct OTP");
-      });
-  };
+  }, [tokenId]);
 
   const handleWastebooking = () => {
-    setVerified("");
-    setPin1("");
-    setPin2("");
-    setPin3("");
-    setPin4("");
-    setPin5("");
-    setPin6("");
-    handleClickOpen();
-    const data2 = {
-      BuyerName: username,
-      Adhar: aadharno,
-      email: useremailid,
-      age: parseInt(userage),
-      type: Wastetype,
+    const dataOfAssignedMember = {
+      mobile: assignedMemberMobile,
+      name: assignedMemberName,
+      email: assignedMemberEmail,
     };
-    // console.log(data2);
+
+    // Name validation
+    const nameRegex = /^[A-Za-z ]{3,}$/;
+    if (!nameRegex.test(dataOfAssignedMember.name)) {
+      toast.error("Name must contain only alphabets and be at least 3 characters long");
+      return;
+    }
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(dataOfAssignedMember.email)) {
+      toast.error("Enter a valid email address");
+      return;
+    }
+
+    // Mobile number validation
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(dataOfAssignedMember.mobile)) {
+      toast.error("Enter a valid 10 digit mobile number");
+      return;
+    }
+
+    const token = localStorage.getItem("token");
     axios
-      .put(`http://localhost:8000//Waste/booking/${hospid}`, data2)
-      .then((res) => {
-        setStore(res.data);
+      .put(`${BACKEND_BASE_URL}/collector/waste-token/accept/${tokenId}`,
+        dataOfAssignedMember,
+        {
+          headers: {
+            token: token,
+          },
+        }
+      )
+      .then( async(res) => {
         console.log(res.data);
+        toast.success("Waste booking successful!");
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        navigate("/home")
       })
       .catch((err) => {
         console.log(err.response.data);
-        if(err.response.data === 'adhar is already exist'){
-          toast.error("Waste has been already booked with this aadhar no.");
-        }
-        else{
-          toast.error("Enter valid details");
-        }
+        toast.error("Error booking waste");
       });
   };
 
@@ -162,116 +88,67 @@ const GarbageAvailability = () => {
     <div className="garbageavailability">
       <Navbar defaulth={"Garbage Nearby"} />
       <div className="availablesec">
-        {<div className="secdiv1">
-          <img src={Hosprefimg} alt="img"></img>
-        </div>}
+        <div className="secdiv1">
+          <img src={Hosprefimg} alt="img" />
+        </div>
         <div className="secdiv2">
           <div className="titlehosp">
-            {result && <span>{result.dataHos.name}</span>}
-            {/* <StarIcon sx={{ marginTop: "3rem", marginLeft: "1rem" }} />
-      <StarIcon sx={{ marginTop: "3rem", marginLeft: "1rem" }} />
-      <StarIcon sx={{ marginTop: "3rem", marginLeft: "1rem" }} />
-      <StarIcon sx={{ marginTop: "3rem", marginLeft: "1rem" }} /> */}
+            {result && <span>{result.userId.name}</span>}
           </div>
           <div className="loc">
             <span>Location:</span>
-            {result && <span className="ans">{result.dataHos.city}</span>}
+            {result && <span className="ans">{result.userId.city}</span>}
           </div>
           <div className="ContactNo loc">
             <span>Contact No:</span>
-            {result && <span className="ans">{result.dataHos.mobileNum}</span>}
-          </div>
-          <div className="otherfacility loc">
-            <span className="loc">Other Facility:</span>
-            {result && (
-              <span className="ans">{result.WasteData.otherFacilities}</span>
-            )}
+            {result && <span className="ans">{result.userId.mobile}</span>}
           </div>
           <div className="WastesAvailable loc">
-            <span>Wastes Available:</span>
+            <span>Wastes Available( In Kg ):</span>
             {result && (
               <span className="ans">
-                {result.WasteData.generalType.availbility}(General) +{" "}
-                {result.WasteData.specialType.availbility}(Special)
+                {result.weightInKg} {result.wasteType}
               </span>
             )}
           </div>
           <div className="WastesPrice loc">
-            <span>Price For Waste:</span>
-            {result && Wastetype === "General" && (
-              <span className="ans">
-                &#8377;{result.WasteData.generalType.pricePerbad}
-              </span>
-            )}
-            {result && Wastetype === "Special" && (
-              <span className="ans">
-                &#8377;{result.WasteData.specialType.pricePerbad}
-              </span>
-            )}
-          <div className="WastesPrice loc">
-            <span>Waste Type:</span>
-
-            <FormControl sx={{ m: 1, minWidth: 180 }} size="small">
-              <InputLabel id="demo-select-small">Waste Type</InputLabel>
-              <Select
-                labelId="demo-select-small"
-                id="demo-select-small"
-                value={Wastetype}
-                label="Waste Type"
-                onChange={handleWastetype}
-              >
-                <MenuItem value="General">General</MenuItem>
-                <MenuItem value="Special">Special</MenuItem>
-              </Select>
-            </FormControl>
+            <span>Price :</span>
+            {result && <span className="ans">&#8377;{result.pricePerKg}</span>}
           </div>
-
-          <div className="loc">
-            <span>Buyer Name:</span>
+          <span style={{ color: "red" }}>
+            Add contact information for, who will collect waste from User.
+          </span>
+          <div className="loc" style={{ margin: "10px" }}>
+            <span>Name :</span>
             <input
               className="ans xxx"
               type="text"
-              value={username}
-              onChange={(e) => {
-                setUsername(e.target.value);
-              }}
-            ></input>
-            <span>Buyer Age:</span>
-            <input
-              className="ans xxx"
-              type="number"
-              value={userage}
-              onChange={(e) => {
-                setUserage(e.target.value);
-              }}
-            ></input>
+              minLength={3}
+              maxLength={50}
+              value={assignedMemberName}
+              onChange={(e) => setAssignedMemberName(e.target.value)}
+            />
           </div>
-
-          <div className="ContactNo loc">
-            <span>Enter your Email Id:</span>
+          <div className="ContactNo loc" style={{ margin: "10px" }}>
+            <span>Email :</span>
             <input
               type="email"
               className="ans"
-              value={useremailid}
-              onChange={(e) => {
-                setUseremailid(e.target.value);
-              }}
-            ></input>
+              value={assignedMemberEmail}
+              onChange={(e) => setAssignedMemberEmail(e.target.value)}
+            />
           </div>
-          <div className="loc">
-              <span>Aadhar Card No:</span>
-              <input
-                className="ans xxx"
-                type="number"
-                minLength={12}
-                maxLength={12}
-                value={aadharno}
-                onChange={(e) => {
-                  setAadharno(e.target.value);
-                }}
-              ></input>
-            </div>
-            </div>
+          <div className="loc" style={{ margin: "10px" }}>
+            <span>Mobile :</span>
+            <input
+              className="ans xxx"
+              type="text"
+              minLength={10}
+              maxLength={10}
+              value={assignedMemberMobile}
+              onChange={(e) => setAssignedMemberMobile(e.target.value)}
+            />
+          </div>
           <div className="bookWaste">
             <Button
               onClick={handleWastebooking}
@@ -281,102 +158,8 @@ const GarbageAvailability = () => {
               Buy
             </Button>
           </div>
-
-          {verified !== "done" && store !== "" && (
-            <Dialog open={open} onClose={handleClose}>
-              <DialogTitle>Enter OTP sent to Email Id </DialogTitle>
-              <DialogContent>
-                <div className="otpfields">
-                  <input
-                    ref={otp1Ref}
-                    maxLength={1}
-                    value={pin1}
-                    onChange={(e, otp1) => {
-                      setPin1(e.target.value);
-                      setOtp1(otp1);
-                      if (otp1 !== "") {
-                        otp2Ref.current.focus();
-                      }
-                    }}
-                  ></input>
-                  <input
-                    ref={otp2Ref}
-                    maxLength={1}
-                    value={pin2}
-                    onChange={(e, otp2) => {
-                      setPin2(e.target.value);
-                      setOtp2(otp2);
-                      if (otp2 !== "") {
-                        otp3Ref.current.focus();
-                      }
-                    }}
-                  ></input>
-                  <input
-                    ref={otp3Ref}
-                    maxLength={1}
-                    value={pin3}
-                    onChange={(e, otp3) => {
-                      setOtp3(otp3);
-                      setPin3(e.target.value);
-                      if (otp3 !== "") {
-                        otp4Ref.current.focus();
-                      }
-                    }}
-                  ></input>
-                  <input
-                    ref={otp4Ref}
-                    maxLength={1}
-                    value={pin4}
-                    onChange={(e, otp4) => {
-                      setOtp4(otp4);
-                      setPin4(e.target.value);
-                      if (otp4 !== "") {
-                        otp5Ref.current.focus();
-                      }
-                    }}
-                  ></input>
-                  <input
-                    ref={otp5Ref}
-                    maxLength={1}
-                    value={pin5}
-                    onChange={(e, otp5) => {
-                      setOtp5(otp5);
-                      setPin5(e.target.value);
-                      if (otp5 !== "") {
-                        otp6Ref.current.focus();
-                      }
-                    }}
-                  ></input>
-                  <input
-                    ref={otp6Ref}
-                    maxLength={1}
-                    value={pin6}
-                    onChange={(e, otp6) => {
-                      setPin6(e.target.value);
-                      setOtp6(otp6);
-                    }}
-                  ></input>
-                </div>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleClose}>Cancel</Button>
-                <Button onClick={handleVerify}>verify</Button>
-              </DialogActions>
-            </Dialog>
-          )}
-
-          {verified !== "" && (
-            <Dialog open={open} onClose={handleClose}>
-              <DialogTitle>Your deal has been successfully booked!</DialogTitle>
-              <DialogActions>
-                <Button onClick={handleClose}>Okay</Button>
-              </DialogActions>
-            </Dialog>
-          )}
         </div>
       </div>
-      {/* <Support/>
-      <Footer/> */}
       <ToastContainer />
     </div>
   );

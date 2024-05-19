@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import BACKEND_BASE_URL from "../../../Config/constant";
+
 const SignInComponent = () => {
   const navigate = useNavigate();
   const [userId,setUserId] = useState("");
@@ -19,8 +21,8 @@ const SignInComponent = () => {
       password:password,
       role:role
     }
-    console.log(process.env.BACKEND_BASE_URL)
-    axios.post(`http://localhost:8088/api/v1/login`,data)
+
+    axios.post(`${BACKEND_BASE_URL}/login`,data)
     .then((res) => {
       if (res?.data?.data?.token) {
           {navigate('/Dashboard');}

@@ -3,15 +3,8 @@ import './Home.css'
 import Navbar from '../../Components/Navbar/Navbar';
 import Footer from '../../Components/Footer/Footer';
 import Support from '../../Components/Support/Support';
-// import Chat from '../../Components/Chat/Chat'
-import { useNavigate } from "react-router-dom";
+
 const Home = () => {
-  const navigate = useNavigate();
-  // const handlegarbageavailnavigate = () => {
-  //   navigate("/GarbageNearby");
-  // }
-
-
   return (
     <div className='Home'>
       <div className='basecover'>

@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import BACKEND_BASE_URL from "../../../Config/constant";
 
 const SignupComp = () => {
   const navigate = useNavigate();
@@ -47,12 +48,6 @@ const SignupComp = () => {
       toast.error("Name must contain only alphabets and be at least 3 characters long");
       return;
     }
-
-    // // Address validation
-    // if (address.length < 10) {
-    //   toast.error("Address must be at least 10 characters long");
-    //   return;
-    // }
 
     // City validation
     const cityStateRegex = /^[A-Za-z ]+$/;
@@ -108,7 +103,7 @@ const SignupComp = () => {
     };
     console.log(data)
     axios
-      .post(`http://localhost:8088/api/v1/signup`, data)
+      .post(`${BACKEND_BASE_URL}/signup`, data)
       .then((res) => {
         // console.log("token at signup", res.data)
         if (res?.data?.data?.token) {
