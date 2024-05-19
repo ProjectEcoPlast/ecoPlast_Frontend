@@ -2,6 +2,7 @@ import "./App.css";
 import Home from "./Pages/Home/Home";
 import Sign from "./Pages/userlogin/Sign";
 import Info from './Pages/Info/Info';
+import About from './about/about'
 import GarbageAvailability from "./Pages/Garbage Availability/GarbageAvailability";
 import GarbageNearby from "./Pages/Garbage Nearby/GarbageNearby";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -19,6 +20,7 @@ function App() {
           <Route path="/home" element={<Home/>} />
           <Route path="/Sign" element={<Sign/>} />
           <Route path="/Info" element={<Info/>} />
+          <Route path="/about" element={<About/>} />
           <Route path="/GarbageNearby" element={<GarbageNearby/>} />
           <Route path="/garbageAvailability" element={<GarbageAvailability/>} />
           <Route path="/Dashboard" element={<Dashboard/>} />
